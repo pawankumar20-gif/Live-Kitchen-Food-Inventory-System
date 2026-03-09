@@ -1,121 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
+// Login Page Functions
 
-<head>
-    <meta charset="UTF-8">
-    <title>Live Kitchen - Login</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/variables.css">
-    <link rel="stylesheet" href="css/auth.css">
-</head>
+function handleLogin(event) {
+    event.preventDefault();
+    
+    const username = document.getElementById("username").value.trim();
+    const password = document.getElementById("password").value.trim();
+    const errorMessage = document.getElementById("errorMessage");
+    
+    // Validate credentials
+    if (username === "2222" && password === "1234") {
+        // Store login info in sessionStorage
+        sessionStorage.setItem("userLoggedIn", "true");
+        sessionStorage.setItem("username", username);
+        
+        // Redirect to main page
+        window.location.href = "index.html";
+    } else {
+        // Show error message
+        errorMessage.textContent = "Invalid username or password. Please try again.";
+        errorMessage.classList.add("show");
+        
+        // Clear password field
+        document.getElementById("password").value = "";
+        
+        // Hide error message after 5 seconds
+        setTimeout(() => {
+            errorMessage.classList.remove("show");
+        }, 5000);
+    }
+}
 
-<body>
-    <div class="auth-container">
-        <!-- Tabs Navigation -->
-        <div class="auth-tabs">
-            <button class="tab-btn active" data-tab="user-login" onclick="switchTab('user-login')">User Login</button>
-            <button class="tab-btn" data-tab="admin-login" onclick="switchTab('admin-login')">Admin Login</button>
-            <button class="tab-btn" data-tab="signup" onclick="switchTab('signup')">Sign Up</button>
-        </div>
-
-        <!-- User Login Tab -->
-        <div id="user-login" class="auth-card active">
-            <div class="auth-header">
-                <h1>Live Kitchen</h1>
-                <p>Food Inventory System</p>
-            </div>
-
-            <form id="userLoginForm" onsubmit="handleUserLogin(event)">
-                <div class="form-group">
-                    <label for="user-email">Email Address</label>
-                    <input type="email" id="user-email" placeholder="Enter your email" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="user-password">Password</label>
-                    <input type="password" id="user-password" placeholder="Enter your password" required>
-                </div>
-
-                <div id="userErrorMessage" class="error-message"></div>
-
-                <button type="submit" class="auth-btn user-btn">Sign In as User</button>
-            </form>
-
-            <div class="demo-info">
-                <p><strong>Demo User Credentials:</strong></p>
-                <p>Email: <code>user@example.com</code></p>
-                <p>Password: <code>user123</code></p>
-            </div>
-        </div>
-
-        <!-- Admin Login Tab -->
-        <div id="admin-login" class="auth-card">
-            <div class="auth-header">
-                <h1>Live Kitchen</h1>
-                <p>Admin Portal</p>
-            </div>
-
-            <form id="adminLoginForm" onsubmit="handleAdminLogin(event)">
-                <div class="form-group">
-                    <label for="admin-username">Admin ID</label>
-                    <input type="text" id="admin-username" placeholder="Enter Admin ID" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="admin-password">Password</label>
-                    <input type="password" id="admin-password" placeholder="Enter your password" required>
-                </div>
-
-                <div id="adminErrorMessage" class="error-message"></div>
-
-                <button type="submit" class="auth-btn admin-btn">Sign In as Admin</button>
-            </form>
-
-            <div class="demo-info">
-                <p><strong>Demo Admin Credentials:</strong></p>
-                <p>Admin ID: <code>admin2222</code></p>
-                <p>Password: <code>admin123</code></p>
-            </div>
-        </div>
-
-        <!-- Sign Up Tab -->
-        <div id="signup" class="auth-card">
-            <div class="auth-header">
-                <h1>Create Account</h1>
-                <p>Join Live Kitchen Community</p>
-            </div>
-
-            <form id="signupForm" onsubmit="handleSignUp(event)">
-                <div class="form-group">
-                    <label for="signup-name">Full Name</label>
-                    <input type="text" id="signup-name" placeholder="Enter your full name" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="signup-email">Email Address</label>
-                    <input type="email" id="signup-email" placeholder="Enter your email" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="signup-password">Password</label>
-                    <input type="password" id="signup-password" placeholder="Create a password" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="signup-confirm">Confirm Password</label>
-                    <input type="password" id="signup-confirm" placeholder="Confirm your password" required>
-                </div>
-
-                <div id="signupErrorMessage" class="error-message"></div>
-
-                <button type="submit" class="auth-btn signup-btn">Create Account</button>
-            </form>
-
-            <p class="signup-footer">Already have an account? <a href="#" onclick="switchTab('user-login'); return false;">Login here</a></p>
-        </div>
-    </div>
-
-    <script src="js/auth-system.js"></script>
-</body>
-
-</html>
+// Prevent going to index.html without login
+document.addEventListener("DOMContentLoaded", function() {
+    // This script only runs on login.html, so nothing special needed here
+});
