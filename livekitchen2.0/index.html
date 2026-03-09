@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Live Kitchen - Admin Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/navigation.css">
+    <link rel="stylesheet" href="css/sections.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/table.css">
+    <link rel="stylesheet" href="css/status.css">
+</head>
+
+<body>
+
+    <header>
+        <div class="header-content">
+            <h2>Live Kitchen Admin Dashboard</h2>
+            <p>Menu Management System</p>
+        </div>
+    </header>
+
+    <nav>
+        <button onclick="showSection(event, 'menu-list')" class="active-nav">View Menu</button>
+        <button onclick="showSection(event, 'add-item')">Add Item</button>
+        <button onclick="showSection(event, 'manage-categories')">Categories</button>
+        <span class="admin-badge">ADMIN</span>
+        <button onclick="logout()" class="logout-btn">Logout</button>
+    </nav>
+
+    <section id="menu-list" class="active">
+        <div class="card">
+            <h3>Menu Items Management</h3>
+            <table id="inventoryTable">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Item Name</th>
+                        <th>Restaurant</th>
+                        <th>Category</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="foodListBody"></tbody>
+            </table>
+        </div>
+    </section>
+
+    <section id="add-item">
+        <div class="card">
+            <h3>Add New Menu Item</h3>
+            <input type="text" id="foodID" placeholder="Unique Food ID (e.g., F001)">
+            
+            <label for="foodName">Item Name</label>
+            <div class="food-name-dropdown">
+                <input type="text" id="foodName" placeholder="Select or type food name..." autocomplete="off" onkeyup="filterFoodNames()">
+                <ul id="foodNameList" class="dropdown-list"></ul>
+            </div>
+            
+            <input type="text" id="foodRestaurant" placeholder="Restaurant Name">
+            <select id="foodCategory">
+                <option value="">Select Category</option>
+                <option value="Tiffin">Tiffin (Breakfast)</option>
+                <option value="Lunch">Lunch</option>
+                <option value="Dinner">Dinner</option>
+                <option value="Snacks">Snacks & Appetizers</option>
+                <option value="Non-Veg">Non-Veg Main Course</option>
+                <option value="Beverages">Beverages</option>
+                <option value="Desserts">Desserts</option>
+                <option value="Sides">Sides</option>
+            </select>
+            <select id="foodStatus">
+                <option value="Available">Available</option>
+                <option value="Limited">Limited Stock</option>
+                <option value="Sold Out">Sold Out</option>
+            </select>
+            <button class="btn" onclick="addFoodItem()">Publish Item</button>
+        </div>
+    </section>
+
+    <section id="manage-categories">
+        <div class="card">
+            <h3>Menu Categories</h3>
+            <p style="color: var(--text-muted); margin-bottom: 25px;">Click a category to filter menu items</p>
+            <div class="categories-list">
+                <div class="category-item" onclick="filterByCategory('Appetizers')">
+                    <span>🍽️</span>
+                    <p>Appetizers</p>
+                </div>
+                <div class="category-item" onclick="filterByCategory('Main Course')">
+                    <span>🍲</span>
+                    <p>Main Course</p>
+                </div>
+                <div class="category-item" onclick="filterByCategory('Desserts')">
+                    <span>🍰</span>
+                    <p>Desserts</p>
+                </div>
+                <div class="category-item" onclick="filterByCategory('Beverages')">
+                    <span>🥤</span>
+                    <p>Beverages</p>
+                </div>
+                <div class="category-item" onclick="filterByCategory('Sides')">
+                    <span>🍟</span>
+                    <p>Sides</p>
+                </div>
+                <div class="category-item clear-filter" onclick="filterByCategory('')">
+                    <span>✨</span>
+                    <p>All Items</p>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 40px;">Items in Category</h3>
+            <table id="categoryFilterTable">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Item Name</th>
+                        <th>Restaurant</th>
+                        <th>Category</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="categoryFilterBody"></tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- JavaScript Files -->
+    <script src="js/auth-system.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/inventory.js"></script>
+    <script>
+        // Check if user is admin
+        document.addEventListener('DOMContentLoaded', function() {
+            const userRole = sessionStorage.getItem("userRole");
+            if (userRole !== "admin") {
+                window.location.href = "login.html";
+            }
+        });
+    </script>
+</body>
+</html>

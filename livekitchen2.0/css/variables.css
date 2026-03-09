@@ -1,0 +1,11 @@
+/* CSS Variables and Theme Configuration */
+:root {
+    --primary: #10b981;
+    --primary-dark: #059669;
+    --bg-body: #f1f5f9;
+    --text-main: #1e293b;
+    --text-muted: #64748b;
+    --white: #ffffff;
+    --danger: #f43f5e;
+    --card-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}

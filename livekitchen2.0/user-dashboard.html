@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Live Kitchen - User Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/navigation.css">
+    <link rel="stylesheet" href="css/sections.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/table.css">
+    <link rel="stylesheet" href="css/status.css">
+</head>
+
+<body>
+
+    <header>
+        <div class="header-content">
+            <h2>Live Kitchen</h2>
+            <p>Freshness Tracked in Real-Time</p>
+        </div>
+    </header>
+
+    <nav>
+        <button onclick="showSection(event, 'menu')" class="active-nav">Live Menu</button>
+        <button onclick="showSection(event, 'search')">Search Items</button>
+        <span class="user-badge">USER</span>
+        <button onclick="logout()" class="logout-btn">Logout</button>
+    </nav>
+
+    <section id="menu" class="active">
+        <div class="card">
+            <h3>Our Menu</h3>
+            <p style="color: var(--text-muted);">Browse all available food items from our partner restaurants</p>
+            <table id="inventoryTable">
+                <thead>
+                    <tr>
+                        <th>Item Name</th>
+                        <th>Restaurant</th>
+                        <th>Category</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="foodListBody"></tbody>
+            </table>
+        </div>
+    </section>
+
+    <section id="search">
+        <div class="card">
+            <h3>Search Food Items</h3>
+            <p style="color: var(--text-muted); margin-bottom: 20px;">Find a specific item by ID</p>
+            <input type="text" id="searchFoodID" placeholder="Enter Food Item ID (e.g. F001)">
+            <button class="btn" onclick="searchFood()">Search</button>
+            <div id="searchResult" style="margin-top: 20px;"></div>
+        </div>
+    </section>
+
+    <!-- JavaScript Files -->
+    <script src="js/auth-system.js"></script>
+    <script src="js/user-dashboard.js"></script>
+    <script>
+        // Check if user is logged in as regular user
+        document.addEventListener('DOMContentLoaded', function() {
+            const userRole = sessionStorage.getItem("userRole");
+            if (userRole !== "user") {
+                window.location.href = "login.html";
+            }
+            displayInventory();
+        });
+    </script>
+
+</body>
+
+</html>
